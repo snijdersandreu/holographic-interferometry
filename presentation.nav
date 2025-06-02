@@ -70,8 +70,15 @@
 \headcommand {\beamer@framepages {29}{29}}
 \headcommand {\slideentry {4}{0}{5}{30/30}{}{0}}
 \headcommand {\beamer@framepages {30}{30}}
-\headcommand {\beamer@partpages {1}{30}}
-\headcommand {\beamer@subsectionpages {26}{30}}
 \headcommand {\beamer@sectionpages {26}{30}}
-\headcommand {\beamer@documentpages {30}}
-\headcommand {\gdef \inserttotalframenumber {26}}
+\headcommand {\beamer@subsectionpages {26}{30}}
+\headcommand {\sectionentry {5}{Code and Resources}{31}{Code and Resources}{0}}
+\headcommand {\slideentry {5}{0}{1}{31/31}{}{0}}
+\headcommand {\beamer@framepages {31}{31}}
+\headcommand {\slideentry {5}{0}{2}{32/32}{}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\beamer@partpages {1}{32}}
+\headcommand {\beamer@subsectionpages {31}{32}}
+\headcommand {\beamer@sectionpages {31}{32}}
+\headcommand {\beamer@documentpages {32}}
+\headcommand {\gdef \inserttotalframenumber {27}}

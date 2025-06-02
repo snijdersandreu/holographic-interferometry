@@ -467,6 +467,7 @@ INPUT /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube
 INPUT /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-vibration.png
 INPUT /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-vibration.png
 INPUT /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-vibration.png
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 OUTPUT /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.nav
 OUTPUT /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.toc
 OUTPUT /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.snm
@@ -482,4 +483,5 @@ INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb

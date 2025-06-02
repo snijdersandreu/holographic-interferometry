@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1748903388.19127 "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.tex" "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.pdf" "presentation" 1748903391.271 0
+["pdflatex"] 1748903638.15062 "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.tex" "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.pdf" "presentation" 1748903641.13128 0
   "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/constructive-destructive-interferences.png" 1748450314.57679 85322 6d02955e014e1298dd7e9a8805abc679 ""
   "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-double-exposure.png" 1748902717.66505 510332 f8700bb0ac46d421721383231108d2a6 ""
   "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-fringe-distances.png" 1748892879.93896 482122 ff0b14d1db3decb88fc1033483aa5b2b ""
@@ -17,10 +17,10 @@
   "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/beamerinnerthememetropolis.sty" 1748194538.45758 9093 b3363c49bd2ed0be1fd18f75a61056fe ""
   "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/beamerouterthememetropolis.sty" 1748194538.4579 4645 f04b2e6f7e77adc819d7639fed40b2e8 ""
   "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/beamerthememetropolis.sty" 1748194538.45816 3461 5c69ffdf5501aa7e38eb53d6f51b5efa ""
-  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.aux" 1748903391.17696 7013 0cc6111e509fb73139d7b1302e32e693 "pdflatex"
-  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.nav" 1748903391.1782 3615 bbdac8d6efd9e2ee844ad83c1c5e4292 "pdflatex"
-  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.out" 1748903391.17788 485 2c7bc008c2861aad8391182627cd6162 "pdflatex"
-  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.tex" 1748903387.88046 13583 385af3b76b64c3d6110c8e76e3bcad57 ""
+  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.aux" 1748903641.03156 7569 92b2141211e161fe52e22010fe0f7a7f "pdflatex"
+  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.nav" 1748903641.0329 3972 0e479c0d0ae6323f00d6a233b1170e68 "pdflatex"
+  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.out" 1748903641.03261 624 812d5790f49206c3516601b9f8077a57 "pdflatex"
+  "/Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.tex" 1748903637.91816 14355 a8b9b158520ef09f2a64e3790a4a67cb ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcss1095.tfm" 1136768653 1536 f0fa079cdc83a6ffeda21e42352cf1ea ""
@@ -44,6 +44,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm" 1336178347 1696 aaa5bbd1f47f001247d42218ce371101 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm" 1336178347 1676 fb6c6a335484692abff897d6e8965829 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
@@ -55,6 +56,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb" 1248133631 25150 e0d09798d232ab9d00c5c0a8df6cc22d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb" 1248133631 25168 33771b85f45c82138dd7745db7092d1c ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1248133631 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb" 1215737283 97272 e31c1319e3ff43b442c57e2c8f2acc52 ""
   "/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2024/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
