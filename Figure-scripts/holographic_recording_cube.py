@@ -6,8 +6,7 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 def create_cube_surface_full():
     """Create a complete 3D cube surface with ultra-high resolution"""
     size = 1.0
-    # Ultra-high resolution for extremely fine patterns
-    n_points = 300  # Much higher resolution: 300x300 = 90,000 points per face!
+    n_points = 300  # Increased back to 300 for finer detail
     
     # Create all 6 faces of the cube
     faces_data = []
@@ -507,6 +506,468 @@ def plot_holographic_reconstruction():
     plt.tight_layout(pad=2.0)
     plt.show()
 
+def create_displaced_cube_surface(displacement_vector=[0.05, 0.02, -0.03], rotation_angle=0.1):
+    """Create a cube surface that has been slightly displaced and rotated"""
+    size = 1.0
+    n_points = 300  # Increased back to 300 for finer detail
+    
+    faces_data = []
+    coords = np.linspace(-size/2, size/2, n_points)
+    U, V = np.meshgrid(coords, coords)
+    
+    # Define face coordinates (same as original cube)
+    # Front face (z = +size/2)
+    X_front = U
+    Y_front = V  
+    Z_front = np.ones_like(U) * (size/2)
+    faces_data.append((X_front, Y_front, Z_front, 'front'))
+    
+    # Back face (z = -size/2) 
+    X_back = U
+    Y_back = V
+    Z_back = np.ones_like(U) * (-size/2)
+    faces_data.append((X_back, Y_back, Z_back, 'back'))
+    
+    # Right face (x = +size/2)
+    X_right = np.ones_like(U) * (size/2)
+    Y_right = V
+    Z_right = U
+    faces_data.append((X_right, Y_right, Z_right, 'right'))
+    
+    # Left face (x = -size/2)
+    X_left = np.ones_like(U) * (-size/2)
+    Y_left = V
+    Z_left = U
+    faces_data.append((X_left, Y_left, Z_left, 'left'))
+    
+    # Top face (y = +size/2)
+    X_top = U
+    Y_top = np.ones_like(U) * (size/2)
+    Z_top = V
+    faces_data.append((X_top, Y_top, Z_top, 'top'))
+    
+    # Bottom face (y = -size/2)
+    X_bottom = U
+    Y_bottom = np.ones_like(U) * (-size/2)
+    Z_bottom = V
+    faces_data.append((X_bottom, Y_bottom, Z_bottom, 'bottom'))
+    
+    # Apply displacement and rotation to all faces
+    displaced_faces = []
+    for X_face, Y_face, Z_face, face_name in faces_data:
+        # Apply small rotation around Z-axis
+        cos_theta = np.cos(rotation_angle)
+        sin_theta = np.sin(rotation_angle)
+        
+        X_rotated = X_face * cos_theta - Y_face * sin_theta
+        Y_rotated = X_face * sin_theta + Y_face * cos_theta
+        Z_rotated = Z_face
+        
+        # Apply displacement
+        X_displaced = X_rotated + displacement_vector[0]
+        Y_displaced = Y_rotated + displacement_vector[1]
+        Z_displaced = Z_rotated + displacement_vector[2]
+        
+        displaced_faces.append((X_displaced, Y_displaced, Z_displaced, face_name))
+    
+    return displaced_faces
+
+def plot_double_exposure_holographic_interferometry():
+    """Demonstrate the double-exposure method for holographic interferometry"""
+    fig = plt.figure(figsize=(18, 11)) # Adjusted for 2x3 + 1 wide bottom row
+    
+    # Create original and displaced cube
+    original_faces = create_cube_surface_full()
+    # displacement_vector=[0.05, 0.02, -0.03], rotation_angle=0.1 (around Z)
+    displaced_faces_data = create_displaced_cube_surface(displacement_vector=[0.05, 0.02, -0.03], rotation_angle=0.1)
+    
+    # Calculate holograms for both positions using SIDE view (Y-Z projection)
+    X_orig, Y_orig, Z_orig, dist_orig, ref_point_side = simulate_interferometer_measurement_full(original_faces, 'side')
+    X_disp, Y_disp, Z_disp, dist_disp, _ = simulate_interferometer_measurement_full(displaced_faces_data, 'side')
+    
+    # Create interference patterns for both (side view Y-Z)
+    intensity_orig_yz, phase_orig_yz, _ = create_interference_from_distances(dist_orig)
+    intensity_disp_yz, phase_disp_yz, _ = create_interference_from_distances(dist_disp)
+    
+    # Get Y-Z projections for side view
+    z_proj_yz, y_proj_yz = get_projection_for_viewing(X_orig, Y_orig, Z_orig, 'side')
+    
+    # Double-exposure interference for Y-Z view
+    phase_difference_yz = phase_disp_yz - phase_orig_yz
+    double_exposure_intensity_yz = 1 + np.cos(phase_difference_yz)
+
+    # --- Data for X-Z projection (top view) ---
+    # Simulate interferometer from TOP for the original and displaced states
+    X_orig_top, Y_orig_top, Z_orig_top, dist_orig_top, ref_point_top = simulate_interferometer_measurement_full(original_faces, 'top')
+    X_disp_top, Y_disp_top, Z_disp_top, dist_disp_top, _ = simulate_interferometer_measurement_full(displaced_faces_data, 'top')
+
+    # Create interference patterns for top view
+    intensity_orig_xz, phase_orig_xz, _ = create_interference_from_distances(dist_orig_top)
+    intensity_disp_xz, phase_disp_xz, _ = create_interference_from_distances(dist_disp_top)
+
+    # Get X-Z projections for top view (X from original, Z from original)
+    # Note: get_projection_for_viewing returns (X,Z) for 'top' view
+    x_proj_xz, z_proj_xz = get_projection_for_viewing(X_orig_top, Y_orig_top, Z_orig_top, 'top')
+
+    # Double-exposure interference for X-Z view
+    phase_difference_xz = phase_disp_xz - phase_orig_xz
+    double_exposure_intensity_xz = 1 + np.cos(phase_difference_xz)
+    # --- End Data for X-Z projection ---
+
+    # 1. Original cube position (3D)
+    ax1 = fig.add_subplot(3, 3, 1, projection='3d')
+    size = 0.5
+    vertices = [
+        [-size, -size, -size], [size, -size, -size], [size, size, -size], [-size, size, -size],
+        [-size, -size, size], [size, -size, size], [size, size, size], [-size, size, size]
+    ]
+    cube_faces_viz = [
+        [vertices[i] for i in [0,1,2,3]], [vertices[i] for i in [4,5,6,7]],
+        [vertices[i] for i in [0,1,5,4]], [vertices[i] for i in [2,3,7,6]],
+        [vertices[i] for i in [1,2,6,5]], [vertices[i] for i in [0,3,7,4]]
+    ]
+    cube_original_viz = Poly3DCollection(cube_faces_viz, alpha=0.7, facecolor='lightblue', edgecolor='blue', linewidth=1.5)
+    ax1.add_collection3d(cube_original_viz)
+    ax1.set_title('Original Position (t=0)', fontsize=10, fontweight='bold')
+    ax1.set_xlabel('X', fontsize=8); ax1.set_ylabel('Y', fontsize=8); ax1.set_zlabel('Z', fontsize=8)
+    ax1.view_init(elev=0, azim=90) # Changed to Y-Z projection (side view)
+    ax1.set_xlim([-1,1]); ax1.set_ylim([-1,1]); ax1.set_zlim([-1,1])
+
+    # 2. Displaced cube position (3D)
+    ax2 = fig.add_subplot(3, 3, 2, projection='3d')
+    disp_vector_viz = [0.05, 0.02, -0.03]
+    rotation_angle_viz = 0.1 # Z-axis rotation
+    disp_vertices_viz = []
+    for v in vertices:
+        x_rot = v[0]*np.cos(rotation_angle_viz) - v[1]*np.sin(rotation_angle_viz)
+        y_rot = v[0]*np.sin(rotation_angle_viz) + v[1]*np.cos(rotation_angle_viz)
+        z_rot = v[2]
+        disp_vertices_viz.append([x_rot + disp_vector_viz[0], y_rot + disp_vector_viz[1], z_rot + disp_vector_viz[2]])
+    displaced_cube_faces_viz = [
+        [disp_vertices_viz[i] for i in [0,1,2,3]], [disp_vertices_viz[i] for i in [4,5,6,7]],
+        [disp_vertices_viz[i] for i in [0,1,5,4]], [disp_vertices_viz[i] for i in [2,3,7,6]],
+        [disp_vertices_viz[i] for i in [1,2,6,5]], [disp_vertices_viz[i] for i in [0,3,7,4]]
+    ]
+    cube_displaced_viz = Poly3DCollection(displaced_cube_faces_viz, alpha=0.7, facecolor='lightcoral', edgecolor='red', linewidth=1.5)
+    ax2.add_collection3d(cube_displaced_viz)
+    ax2.set_title('Displaced Position (t=Δt)', fontsize=10, fontweight='bold')
+    ax2.set_xlabel('X', fontsize=8); ax2.set_ylabel('Y', fontsize=8); ax2.set_zlabel('Z', fontsize=8)
+    ax2.view_init(elev=0, azim=90) # Changed to Y-Z projection (side view)
+    ax2.set_xlim([-1,1]); ax2.set_ylim([-1,1]); ax2.set_zlim([-1,1])
+
+    # 3. Original hologram (Y-Z Projection)
+    ax3 = fig.add_subplot(3, 3, 3)
+    scatter3 = ax3.scatter(y_proj_yz, z_proj_yz, c=intensity_orig_yz, cmap='gray', s=0.1, alpha=1.0)
+    ax3.set_title('Hologram 1 (Y-Z Proj.)', fontsize=10, fontweight='bold')
+    ax3.set_xlabel('Y (m)', fontsize=8); ax3.set_ylabel('Z (m)', fontsize=8)
+    cbar3 = plt.colorbar(scatter3, ax=ax3, shrink=0.7); cbar3.set_label('Intensity', fontsize=8)
+    ax3.set_aspect('equal')
+
+    # 4. Displaced hologram (Y-Z Projection)
+    ax4 = fig.add_subplot(3, 3, 4)
+    scatter4 = ax4.scatter(y_proj_yz, # Use y_proj_yz from original for consistent grid with intensity_disp_yz
+                           z_proj_yz, # Use z_proj_yz from original for consistent grid with intensity_disp_yz
+                           c=intensity_disp_yz, cmap='gray', s=0.1, alpha=1.0)
+    ax4.set_title('Hologram 2 (Y-Z Proj.)', fontsize=10, fontweight='bold')
+    ax4.set_xlabel('Y (m)', fontsize=8); ax4.set_ylabel('Z (m)', fontsize=8)
+    cbar4 = plt.colorbar(scatter4, ax=ax4, shrink=0.7); cbar4.set_label('Intensity', fontsize=8)
+    ax4.set_aspect('equal')
+
+    # 5. Double-exposure Fringes (Y-Z Projection)
+    ax5 = fig.add_subplot(3, 3, 5)
+    scatter5 = ax5.scatter(y_proj_yz, z_proj_yz, c=double_exposure_intensity_yz, cmap='RdBu', s=0.1, alpha=1.0)
+    ax5.set_title('Double-Exposure Fringes\n(Y-Z Projection)', fontsize=10, fontweight='bold', color='red')
+    ax5.set_xlabel('Y (m)', fontsize=8); ax5.set_ylabel('Z (m)', fontsize=8)
+    cbar5 = plt.colorbar(scatter5, ax=ax5, shrink=0.7); cbar5.set_label('Interference', fontsize=8)
+    ax5.set_aspect('equal')
+
+    # 6. Double-exposure Fringes (X-Z Projection - for comparison)
+    ax6 = fig.add_subplot(3, 3, 6)
+    scatter6 = ax6.scatter(x_proj_xz, z_proj_xz, c=double_exposure_intensity_xz, cmap='RdBu', s=0.1, alpha=1.0)
+    ax6.set_title('Double-Exposure Fringes\n(X-Z Projection)', fontsize=10, fontweight='bold', color='blue')
+    ax6.set_xlabel('X (m)', fontsize=8); ax6.set_ylabel('Z (m)', fontsize=8)
+    cbar6 = plt.colorbar(scatter6, ax=ax6, shrink=0.7); cbar6.set_label('Interference', fontsize=8)
+    ax6.set_aspect('equal')
+    
+    # 7. Cross-section comparison (wider - spans all 3 columns of the bottom row)
+    # GridSpec for precise control of bottom row spanning
+    gs = fig.add_gridspec(3, 3)
+    ax7 = fig.add_subplot(gs[2, :]) # Spans all columns in the 3rd row (index 2)
+
+    center_mask_yz = np.abs(z_proj_yz.flatten()) < (z_proj_yz.max() * 0.1) # Take a thin slice near Z=0
+    y_slice_yz = y_proj_yz.flatten()[center_mask_yz]
+    
+    intensity_orig_slice_yz = intensity_orig_yz.flatten()[center_mask_yz]
+    intensity_disp_slice_yz = intensity_disp_yz.flatten()[center_mask_yz]
+    double_exp_slice_yz = double_exposure_intensity_yz.flatten()[center_mask_yz]
+    
+    # Sort by y coordinate for proper line plot
+    sort_idx_yz = np.argsort(y_slice_yz)
+    y_sorted_yz = y_slice_yz[sort_idx_yz]
+    orig_sorted_yz = intensity_orig_slice_yz[sort_idx_yz]
+    disp_sorted_yz = intensity_disp_slice_yz[sort_idx_yz]
+    double_sorted_yz = double_exp_slice_yz[sort_idx_yz]
+    
+    ax7.plot(y_sorted_yz, orig_sorted_yz, 'b-', linewidth=1.5, alpha=0.7, label='Hologram 1 (Orig)')
+    ax7.plot(y_sorted_yz, disp_sorted_yz, 'r-', linewidth=1.5, alpha=0.7, label='Hologram 2 (Disp)')
+    ax7.plot(y_sorted_yz, double_sorted_yz, 'k-', linewidth=2, label='Double-Exposure Fringes')
+    ax7.set_title('Cross-section of Y-Z Fringes (slice near Z=0)', fontsize=10, fontweight='bold')
+    ax7.set_xlabel('Y position (m)', fontsize=9)
+    ax7.set_ylabel('Intensity', fontsize=9)
+    ax7.legend(fontsize=8, loc='upper right')
+    ax7.grid(True, alpha=0.4)
+    
+    plt.tight_layout(pad=2.0, h_pad=3.0) # Increased h_pad for row spacing
+    plt.show()
+
+def create_vibrating_cube_positions(n_positions=10, amplitude=0.02, frequency_factor=1.0):
+    """Create multiple positions of a cube undergoing vibration"""
+    vibrating_positions = []
+    
+    for i in range(n_positions):
+        # Sinusoidal vibration in Y direction
+        phase = 2 * np.pi * i / n_positions * frequency_factor
+        y_displacement = amplitude * np.sin(phase)
+        
+        # Small random variation in other directions
+        x_displacement = amplitude * 0.1 * np.cos(phase * 1.7)
+        z_displacement = amplitude * 0.1 * np.sin(phase * 0.8)
+        
+        displacement_vector = [x_displacement, y_displacement, z_displacement]
+        rotation_angle = amplitude * 0.5 * np.sin(phase * 0.5)  # Small rotation
+        
+        displaced_faces = create_displaced_cube_surface(displacement_vector, rotation_angle)
+        vibrating_positions.append(displaced_faces)
+    
+    return vibrating_positions
+
+def plot_real_time_holographic_interferometry():
+    """Demonstrate real-time holographic interferometry"""
+    fig = plt.figure(figsize=(12, 10.5))
+    
+    # Create original cube and a current deformed state
+    original_faces = create_cube_surface_full()
+    current_faces = create_displaced_cube_surface([0.03, 0.04, -0.01], 0.05)
+    
+    # Calculate holograms using SIDE view (Y-Z projection)
+    X_ref, Y_ref, Z_ref, dist_ref, ref_point = simulate_interferometer_measurement_full(original_faces, 'side')
+    X_curr, Y_curr, Z_curr, dist_curr, _ = simulate_interferometer_measurement_full(current_faces, 'side')
+    
+    # Create interference patterns
+    intensity_ref, phase_ref, _ = create_interference_from_distances(dist_ref)
+    intensity_curr, phase_curr, _ = create_interference_from_distances(dist_curr)
+    
+    # Real-time interference (reference hologram vs current object)
+    phase_difference = phase_curr - phase_ref
+    real_time_intensity = 1 + np.cos(phase_difference)
+    displacement_field = dist_curr - dist_ref
+    
+    # Get Y-Z projections for side view
+    z_proj, y_proj = get_projection_for_viewing(X_ref, Y_ref, Z_ref, 'side')
+    
+    fig.suptitle('Real-Time Holographic Interferometry Demonstration', fontsize=14, fontweight='bold', y=0.98)
+
+    # Manually define subplot positions: [left, bottom, width, height]
+    ax1_pos = [0.05, 0.70, 0.4, 0.25]  # Top-left
+    ax2_pos = [0.55, 0.70, 0.4, 0.25]  # Top-right (3D)
+    ax3_pos = [0.05, 0.37, 0.4, 0.25]  # Middle-left (nudged down slightly)
+    ax4_pos = [0.55, 0.37, 0.4, 0.25]  # Middle-right (nudged down slightly)
+    ax5_pos = [0.1, 0.06, 0.8, 0.22]   # Bottom, wide (nudged down slightly for title space)
+
+    ax1 = fig.add_axes(ax1_pos)
+    ax2 = fig.add_axes(ax2_pos, projection='3d')
+    ax3 = fig.add_axes(ax3_pos)
+    ax4 = fig.add_axes(ax4_pos)
+    ax5 = fig.add_axes(ax5_pos)
+
+    # 1. Reference hologram (Y-Z Projection) (Top-Left)
+    scatter1 = ax1.scatter(y_proj, z_proj, c=intensity_ref, cmap='gray', s=0.1, alpha=1.0)
+    ax1.set_title('Reference Hologram (Stored Y-Z)', fontsize=9, fontweight='bold')
+    ax1.set_xlabel('Y (m)', fontsize=8); ax1.set_ylabel('Z (m)', fontsize=8)
+    cbar1 = fig.colorbar(scatter1, ax=ax1, shrink=0.8, aspect=10, pad=0.05)
+    cbar1.set_label('Intensity', fontsize=8)
+    ax1.set_aspect('equal')
+    
+    # 2. Current object (live) (Top-Right)
+    size = 0.5
+    vertices = [
+        [-size, -size, -size], [size, -size, -size], [size, size, -size], [-size, size, -size],
+        [-size, -size, size], [size, -size, size], [size, size, size], [-size, size, size]
+    ]
+    disp_vertices = []
+    for vertex in vertices:
+        cos_theta = np.cos(0.05); sin_theta = np.sin(0.05)
+        x_rot = vertex[0] * cos_theta - vertex[1] * sin_theta
+        y_rot = vertex[0] * sin_theta + vertex[1] * cos_theta
+        z_rot = vertex[2]
+        disp_vertices.append([x_rot + 0.03, y_rot + 0.04, z_rot - 0.01])
+    cube_faces_viz = [
+        [disp_vertices[i] for i in [0,1,2,3]], [disp_vertices[i] for i in [4,5,6,7]],
+        [disp_vertices[i] for i in [0,1,5,4]], [disp_vertices[i] for i in [2,3,7,6]],
+        [disp_vertices[i] for i in [1,2,6,5]], [disp_vertices[i] for i in [0,3,7,4]]
+    ]
+    cube_viz = Poly3DCollection(cube_faces_viz, alpha=0.7, facecolor='lightcoral', edgecolor='red', linewidth=1.5)
+    ax2.add_collection3d(cube_viz)
+    ax2.set_title('Current Object (Live/Deformed)', fontsize=9, fontweight='bold')
+    ax2.set_xlabel('X', fontsize=8); ax2.set_ylabel('Y', fontsize=8); ax2.set_zlabel('Z', fontsize=8)
+    ax2.view_init(elev=0, azim=90) # Changed to Y-Z projection (side view)
+    ax2.set_xlim([-1, 1]); ax2.set_ylim([-1, 1]); ax2.set_zlim([-1, 1])
+    
+    # 3. Real-time interference fringes (Y-Z Projection) (Middle-Left)
+    scatter3 = ax3.scatter(y_proj, z_proj, c=real_time_intensity, cmap='RdBu', s=0.1, alpha=1.0)
+    ax3.set_title('Real-Time Interference (Y-Z)', fontsize=9, fontweight='bold', color='red')
+    ax3.set_xlabel('Y (m)', fontsize=8); ax3.set_ylabel('Z (m)', fontsize=8)
+    cbar3 = fig.colorbar(scatter3, ax=ax3, shrink=0.8, aspect=10, pad=0.05)
+    cbar3.set_label('Interference', fontsize=8)
+    ax3.set_aspect('equal')
+    
+    # 4. Displacement field (Y-Z Projection) (Middle-Right)
+    scatter4 = ax4.scatter(y_proj, z_proj, c=displacement_field, cmap='viridis', s=0.1, alpha=1.0)
+    ax4.set_title('Displacement Field (Y-Z)', fontsize=9, fontweight='bold')
+    ax4.set_xlabel('Y (m)', fontsize=8); ax4.set_ylabel('Z (m)', fontsize=8)
+    cbar4 = fig.colorbar(scatter4, ax=ax4, shrink=0.8, aspect=10, pad=0.05)
+    cbar4.set_label('Displacement (m)', fontsize=8)
+    ax4.set_aspect('equal')
+    
+    # 5. Cross-section showing real-time changes (Bottom, wide plot)
+    center_mask = np.abs(z_proj.flatten()) < (z_proj.max() * 0.1) # Take a thin slice near Z=0
+    y_slice = y_proj.flatten()[center_mask]
+    sort_idx = np.argsort(y_slice)
+    y_sorted = y_slice[sort_idx]
+    
+    intensity_ref_slice = intensity_ref.flatten()[center_mask][sort_idx]
+    real_time_slice = real_time_intensity.flatten()[center_mask][sort_idx]
+    displacement_slice = displacement_field.flatten()[center_mask][sort_idx]
+    
+    ax5_twin = ax5.twinx()
+    line1 = ax5.plot(y_sorted, intensity_ref_slice, 'b-', linewidth=1.5, alpha=0.7, label='Ref. Hologram')
+    line2 = ax5.plot(y_sorted, real_time_slice, 'r-', linewidth=2, label='Real-Time Fringes')
+    line3 = ax5_twin.plot(y_sorted, displacement_slice, 'g--', linewidth=1.5, label='Displacement')
+    
+    ax5.set_title('Cross-section: Real-Time Analysis (slice near Z=0)', fontsize=9, fontweight='bold')
+    ax5.set_xlabel('Y position (m)', fontsize=8)
+    ax5.set_ylabel('Intensity', fontsize=8, color='black')
+    ax5_twin.set_ylabel('Displacement (m)', fontsize=8, color='green')
+    ax5.tick_params(axis='y', labelcolor='black', labelsize=7)
+    ax5_twin.tick_params(axis='y', labelcolor='green', labelsize=7)
+    ax5.grid(True, alpha=0.4)
+    
+    lines = line1 + line2 + line3
+    labels = [l.get_label() for l in lines]
+    ax5.legend(lines, labels, loc='upper right', fontsize=7)
+    
+    plt.show()
+
+def plot_time_averaged_holographic_interferometry():
+    """Demonstrate time-averaged holographic interferometry for vibration analysis"""
+    fig = plt.figure(figsize=(15, 9)) # Adjusted for a 2x3 layout
+    
+    # Create vibrating cube positions
+    vibrating_positions = create_vibrating_cube_positions(20, amplitude=0.03)
+    
+    # Calculate holograms for all positions and average them
+    all_intensities = []
+    all_phases = []
+    reference_position = None
+    
+    for i, faces_data in enumerate(vibrating_positions):
+        X_vib, Y_vib, Z_vib, dist_vib, ref_point = simulate_interferometer_measurement_full(faces_data, 'front')
+        intensity_vib, phase_vib, _ = create_interference_from_distances(dist_vib)
+        
+        if i == 0:  # Store reference position and projection
+            reference_position = (X_vib, Y_vib, Z_vib)
+            x_proj, y_proj = get_projection_for_viewing(X_vib, Y_vib, Z_vib, 'front')
+        
+        all_intensities.append(intensity_vib)
+        all_phases.append(phase_vib)
+    
+    # Time-averaged intensity (this creates the characteristic vibration pattern)
+    time_averaged_intensity = np.mean(all_intensities, axis=0)
+    
+    # Calculate vibration amplitude from phase variations
+    phase_array = np.array(all_phases)
+    phase_std = np.std(phase_array, axis=0)
+    vibration_amplitude = phase_std * (5e-3) / (2 * np.pi)  # Convert phase to displacement
+    
+    # 1. Single vibration position
+    ax1 = fig.add_subplot(2, 3, 1, projection='3d')
+    size = 0.5
+    vertices = [
+        [-size, -size, -size], [size, -size, -size], [size, size, -size], [-size, size, -size],
+        [-size, -size, size], [size, -size, size], [size, size, size], [-size, size, size]
+    ]
+    cube_faces_viz = [
+        [vertices[i] for i in [0,1,2,3]], [vertices[i] for i in [4,5,6,7]],
+        [vertices[i] for i in [0,1,5,4]], [vertices[i] for i in [2,3,7,6]],
+        [vertices[i] for i in [1,2,6,5]], [vertices[i] for i in [0,3,7,4]]
+    ]
+    cube_viz = Poly3DCollection(cube_faces_viz, alpha=0.5, facecolor='lightgreen', edgecolor='green', linewidth=1.5)
+    ax1.add_collection3d(cube_viz)
+    ax1.quiver(0, 0, 0, 0, 0.15, 0, color='red', arrow_length_ratio=0.2, linewidth=2.5)
+    ax1.quiver(0, 0, 0, 0, -0.15, 0, color='red', arrow_length_ratio=0.2, linewidth=2.5)
+    ax1.text(0, 0.35, 0, 'Vibration', ha='center', fontsize=9, color='red', fontweight='bold')
+    ax1.set_title('Vibrating Object', fontsize=10, fontweight='bold')
+    ax1.set_xlabel('X', fontsize=8); ax1.set_ylabel('Y', fontsize=8); ax1.set_zlabel('Z', fontsize=8)
+    ax1.view_init(elev=0, azim=0) # Changed to Z-Y projection
+    ax1.set_xlim([-1, 1]); ax1.set_ylim([-1, 1]); ax1.set_zlim([-1, 1])
+    
+    # 2. Individual hologram (single position)
+    ax2 = fig.add_subplot(2, 3, 2)
+    scatter2 = ax2.scatter(x_proj, y_proj, c=all_intensities[0], cmap='gray', s=0.1, alpha=1.0)
+    ax2.set_title('Instantaneous Hologram', fontsize=10, fontweight='bold')
+    ax2.set_xlabel('X (m)', fontsize=8); ax2.set_ylabel('Y (m)', fontsize=8)
+    cbar2 = plt.colorbar(scatter2, ax=ax2, shrink=0.7); cbar2.set_label('Intensity', fontsize=8)
+    ax2.set_aspect('equal')
+    
+    # 3. Time-averaged hologram
+    ax3 = fig.add_subplot(2, 3, 3)
+    scatter3 = ax3.scatter(x_proj, y_proj, c=time_averaged_intensity, cmap='plasma', s=0.1, alpha=1.0)
+    ax3.set_title('Time-Averaged Hologram', fontsize=10, fontweight='bold', color='red')
+    ax3.set_xlabel('X (m)', fontsize=8); ax3.set_ylabel('Y (m)', fontsize=8)
+    cbar3 = plt.colorbar(scatter3, ax=ax3, shrink=0.7); cbar3.set_label('Avg. Intensity', fontsize=8)
+    ax3.set_aspect('equal')
+    
+    # 4. Vibration amplitude map
+    ax4 = fig.add_subplot(2, 3, 4)
+    scatter4 = ax4.scatter(x_proj, y_proj, c=vibration_amplitude, cmap='hot', s=0.1, alpha=1.0)
+    ax4.set_title('Vibration Amplitude Map', fontsize=10, fontweight='bold')
+    ax4.set_xlabel('X (m)', fontsize=8); ax4.set_ylabel('Y (m)', fontsize=8)
+    cbar4 = plt.colorbar(scatter4, ax=ax4, shrink=0.7); cbar4.set_label('Amplitude (m)', fontsize=8)
+    ax4.set_aspect('equal')
+    
+    # 5. Comparison of multiple positions (overlay)
+    ax5 = fig.add_subplot(2, 3, 5)
+    for i in range(0, 20, 5):
+        alpha_val = 0.2 + 0.1 * i/5
+        ax5.scatter(x_proj, y_proj, c=all_intensities[i], cmap='gray', 
+                   s=0.05, alpha=alpha_val, vmin=0, vmax=2)
+    ax5.set_title('Overlaid Instantaneous\nHolograms', fontsize=10, fontweight='bold')
+    ax5.set_xlabel('X (m)', fontsize=8); ax5.set_ylabel('Y (m)', fontsize=8)
+    ax5.set_aspect('equal')
+    
+    # 6. Cross-section showing vibration (bottom-right corner)
+    ax6 = fig.add_subplot(2, 3, 6)
+    center_mask = np.abs(y_proj.flatten()) < (y_proj.max() * 0.1)
+    x_slice = x_proj.flatten()[center_mask]
+    sort_idx = np.argsort(x_slice)
+    x_sorted = x_slice[sort_idx]
+    
+    for i in range(0, 20, 4):
+        intensity_slice = all_intensities[i].flatten()[center_mask][sort_idx]
+        ax6.plot(x_sorted, intensity_slice, alpha=(0.2 + 0.5 * i/20), linewidth=1, color='blue')
+    
+    avg_slice = time_averaged_intensity.flatten()[center_mask][sort_idx]
+    ax6.plot(x_sorted, avg_slice, 'r-', linewidth=2, label='Time-Averaged')
+    
+    ax6.set_title('Cross-section (Y ≈ 0)', fontsize=10, fontweight='bold')
+    ax6.set_xlabel('X position (m)', fontsize=8)
+    ax6.set_ylabel('Intensity', fontsize=8)
+    ax6.legend(fontsize=8)
+    ax6.grid(True, alpha=0.4)
+    
+    plt.tight_layout(pad=2.0, h_pad=2.5, w_pad=2.5) # Adjusted padding
+    plt.show()
+
 if __name__ == "__main__":
     print("Generating high-resolution cube holographic recording visualizations...")
     
@@ -514,5 +975,8 @@ if __name__ == "__main__":
     plot_cube_interferometer_holography()
     plot_cube_holographic_recording()
     plot_holographic_reconstruction()
+    plot_double_exposure_holographic_interferometry()
+    plot_real_time_holographic_interferometry()
+    plot_time_averaged_holographic_interferometry()
     
     print("High-resolution cube visualizations generated (not saved automatically)") 

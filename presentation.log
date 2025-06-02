@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.21)  2 JUN 2025 21:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.21)  3 JUN 2025 00:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -811,7 +811,7 @@ File: ts1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ] [6
 
 ]
-<Figures/constructive-destructive-interferences.png, id=80, 867.24pt x 433.62pt>
+<Figures/constructive-destructive-interferences.png, id=72, 867.24pt x 433.62pt>
 File: Figures/constructive-destructive-interferences.png Graphic file (type png)
 <use Figures/constructive-destructive-interferences.png>
 Package pdftex.def Info: Figures/constructive-destructive-interferences.png  used on input line 61.
@@ -829,7 +829,7 @@ Overfull \vbox (14.3017pt too high) detected at line 89
 [8
 
 ]
-<Figures/temporal-spatial-coherence.png, id=95, 1062.369pt x 638.8668pt>
+<Figures/temporal-spatial-coherence.png, id=87, 1062.369pt x 638.8668pt>
 File: Figures/temporal-spatial-coherence.png Graphic file (type png)
 <use Figures/temporal-spatial-coherence.png>
 Package pdftex.def Info: Figures/temporal-spatial-coherence.png  used on input line 98.
@@ -841,7 +841,7 @@ Overfull \vbox (18.66457pt too high) detected at line 98
 [9
 
  </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/temporal-spatial-coherence.png>]
-<Figures/interferometers-types.png, id=103, 864.22874pt x 403.5075pt>
+<Figures/interferometers-types.png, id=95, 864.22874pt x 403.5075pt>
 File: Figures/interferometers-types.png Graphic file (type png)
 <use Figures/interferometers-types.png>
 Package pdftex.def Info: Figures/interferometers-types.png  used on input line 107.
@@ -869,7 +869,7 @@ Overfull \vbox (5.01402pt too high) detected at line 179
 [16
 
 ]
-<Figures/cube-holograph.png, id=144, 1051.5285pt x 607.068pt>
+<Figures/cube-holograph.png, id=136, 1051.5285pt x 607.068pt>
 File: Figures/cube-holograph.png Graphic file (type png)
 <use Figures/cube-holograph.png>
 Package pdftex.def Info: Figures/cube-holograph.png  used on input line 187.
@@ -881,7 +881,7 @@ Overfull \vbox (0.34251pt too high) detected at line 187
 [17
 
  </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-holograph.png>]
-<Figures/cube-fringe-distances.png, id=152, 1051.5285pt x 607.068pt>
+<Figures/cube-fringe-distances.png, id=144, 1051.5285pt x 607.068pt>
 File: Figures/cube-fringe-distances.png Graphic file (type png)
 <use Figures/cube-fringe-distances.png>
 Package pdftex.def Info: Figures/cube-fringe-distances.png  used on input line 195.
@@ -893,7 +893,7 @@ Overfull \vbox (8.25246pt too high) detected at line 195
 [18
 
  </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-fringe-distances.png>]
-<Figures/sphere-holograph.png, id=160, 1051.5285pt x 607.068pt>
+<Figures/sphere-holograph.png, id=152, 1051.5285pt x 607.068pt>
 File: Figures/sphere-holograph.png Graphic file (type png)
 <use Figures/sphere-holograph.png>
 Package pdftex.def Info: Figures/sphere-holograph.png  used on input line 203.
@@ -905,7 +905,7 @@ Overfull \vbox (8.25246pt too high) detected at line 203
 [19
 
  </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/sphere-holograph.png>]
-<Figures/sphere-fringe-distances.png, id=170, 1051.5285pt x 607.068pt>
+<Figures/sphere-fringe-distances.png, id=161, 1051.5285pt x 607.068pt>
 File: Figures/sphere-fringe-distances.png Graphic file (type png)
 <use Figures/sphere-fringe-distances.png>
 Package pdftex.def Info: Figures/sphere-fringe-distances.png  used on input line 211.
@@ -923,7 +923,7 @@ Overfull \vbox (7.204pt too high) detected at line 231
 [21
 
 ]
-<Figures/cube-reconstruction.png, id=183, 1051.5285pt x 607.068pt>
+<Figures/cube-reconstruction.png, id=175, 1051.5285pt x 607.068pt>
 File: Figures/cube-reconstruction.png Graphic file (type png)
 <use Figures/cube-reconstruction.png>
 Package pdftex.def Info: Figures/cube-reconstruction.png  used on input line 239.
@@ -931,7 +931,7 @@ Package pdftex.def Info: Figures/cube-reconstruction.png  used on input line 239
  [22
 
  </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-reconstruction.png>]
-<Figures/sphere-reconstruction.png, id=191, 1051.5285pt x 607.068pt>
+<Figures/sphere-reconstruction.png, id=183, 1051.5285pt x 607.068pt>
 File: Figures/sphere-reconstruction.png Graphic file (type png)
 <use Figures/sphere-reconstruction.png>
 Package pdftex.def Info: Figures/sphere-reconstruction.png  used on input line 247.
@@ -946,35 +946,43 @@ Package pdftex.def Info: Figures/sphere-reconstruction.png  used on input line 2
 
 ] [27
 
-] [28
-
-] [29
-
-] [30
-
-] [31
-
-] [32
-
-] [33
-
-] [34
-
-] [35
-
-] [36
-
-] [37
-
-] [38
-
-] [39
-
-] [40
-
-] [41
-
 ]
+<Figures/cube-double-exposure.png, id=213, 1051.5285pt x 607.068pt>
+File: Figures/cube-double-exposure.png Graphic file (type png)
+<use Figures/cube-double-exposure.png>
+Package pdftex.def Info: Figures/cube-double-exposure.png  used on input line 291.
+(pdftex.def)             Requested size: 307.28987pt x 177.40688pt.
+
+Overfull \vbox (8.25246pt too high) detected at line 291
+ []
+
+[28
+
+ </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-double-exposure.png>]
+<Figures/real-time-cube.png, id=221, 1050.8058pt x 607.068pt>
+File: Figures/real-time-cube.png Graphic file (type png)
+<use Figures/real-time-cube.png>
+Package pdftex.def Info: Figures/real-time-cube.png  used on input line 299.
+(pdftex.def)             Requested size: 307.28987pt x 177.5273pt.
+
+Overfull \vbox (8.37288pt too high) detected at line 299
+ []
+
+[29
+
+ </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/real-time-cube.png>]
+<Figures/cube-vibration.png, id=229, 1051.5285pt x 607.068pt>
+File: Figures/cube-vibration.png Graphic file (type png)
+<use Figures/cube-vibration.png>
+Package pdftex.def Info: Figures/cube-vibration.png  used on input line 307.
+(pdftex.def)             Requested size: 307.28987pt x 177.40688pt.
+
+Overfull \vbox (8.25246pt too high) detected at line 307
+ []
+
+[30
+
+ </Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/Figures/cube-vibration.png>]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
 
@@ -990,21 +998,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 9797AACB02AC9F648D1FAA041B8AEC33;800.
+(rerunfilecheck)             Checksum: 2C7BC008C2861AAD8391182627CD6162;485.
  ) 
 Here is how much of TeX's memory you used:
- 25329 strings out of 474116
- 512468 string characters out of 5743682
+ 25302 strings out of 474116
+ 512877 string characters out of 5743682
  1935187 words of memory out of 5000000
- 47081 multiletter control sequences out of 15000+600000
+ 47075 multiletter control sequences out of 15000+600000
  567307 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,13n,123p,1997b,758s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,13n,123p,1981b,758s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb>
-Output written on /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.pdf (41 pages, 2813364 bytes).
+Output written on /Volumes/PortableSSD/uni/Fotònica/holographic-interferometry/presentation.pdf (30 pages, 4373256 bytes).
 PDF statistics:
- 367 PDF objects out of 1000 (max. 8388607)
- 276 compressed objects within 3 object streams
- 98 named destinations out of 1000 (max. 500000)
- 136 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 303 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
+ 77 named destinations out of 1000 (max. 500000)
+ 135 words of extra memory for PDF output out of 10000 (max. 10000000)
 
