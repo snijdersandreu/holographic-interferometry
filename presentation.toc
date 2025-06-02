@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Interferometry}{4}{0}{2}
+\beamer@sectionintoc {3}{Holography}{12}{0}{3}
+\beamer@sectionintoc {4}{Physics of Holographic Interferometry}{26}{0}{4}
+\beamer@sectionintoc {5}{Industrial Applications}{33}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{40}{0}{6}
